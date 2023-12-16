@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>QR Code Generator</title>
+</head>
+
+<body class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+
+    <div class="container text-center">
+        <h1 class="mb-4">QR Code Generator</h1>
+
+
+        <div class="input-group mb-3">
+            <div class="form-floating">
+                <input type="text" id="inputText" class="form-control" placeholder="Enter text for QR code"
+                    aria-label="Enter text for QR code">
+                <label for="floatingInputGroup1">Username</label>
+            </div>
+            <span class="input-group-text">@masholdings.com</span>
+        </div>
+        <button class="btn btn-primary" type="button" onclick="generateQRCode()">Generate QR Code</button>
+
+        <!-- QR Code Modal -->
+        <div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="qrCodeModalLabel">QR Code Result</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <center>
+                            <div id="qrcode"></div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script>
+        function generateQRCode() {
+            // Get the input text
+            var inputText = document.getElementById('inputText').value;
+
+            // Create QR Code
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: inputText,
+                width: 128,
+                height: 128
+            });
+
+            // Show the modal
+            var qrCodeModal = new bootstrap.Modal(document.getElementById('qrCodeModal'));
+            qrCodeModal.show();
+
+            qrCodeModal._element.addEventListener('hidden.bs.modal', function () {
+                // Reload the page when the modal is hidden
+                location.reload();
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>
